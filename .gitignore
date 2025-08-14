@@ -1,0 +1,50 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.class
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# FastAPI / Uvicorn logs
+*.log
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+*.py,cover
+.cache
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode / IDE settings
+.vscode/
+.idea/
+
+# Mypy type checker cache
+.mypy_cache/
+
+# Build / Distribution
+build/
+dist/
+*.egg-info/
+
+# Environment variables file
+.env.local
+.env.*
+
+# Local database or temp files
+*.sqlite3
+*.db
+tmp/
