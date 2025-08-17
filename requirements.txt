@@ -5,3 +5,4 @@ sqlmodel==0.0.24
 pydantic==2.11.7
 sqlalchemy==2.0.24
 timescaledb==0.0.4
+requests==2.31.0

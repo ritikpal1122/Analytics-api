@@ -1,0 +1,55 @@
+
+# upgrade pip to the latest version
+FROM python:3.13.2-slim-bullseye
+
+
+
+
+# create a virtual environment
+RUN python -m venv /opt/venv
+# set the virtual environment as the default python environment
+ENV PATH="/opt/venv/bin:$PATH"
+# install pip and upgrade it
+RUN python -m pip install --upgrade pip
+
+# set python related environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# install dependencies
+RUN apt-get update && apt-get install -y \
+    # forpostgresql - this is needed for psycopg2
+    libpq-dev \
+    # for pillow - this is needed for image processing
+    libjpeg-dev \
+    # for cairosvg - this is needed for SVG to PNG conversion
+    libcairo2 \
+    # other 
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# create the mini vms code directory
+RUN mkdir -p /code
+# set the working directory
+WORKDIR /code
+# copy the requirements file
+COPY requirements.txt /code/requirements.txt
+
+# copy the mini vms code
+COPY ./src /code
+# install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# make the bash script executable
+COPY ./boot/docker-run.sh /opt/run.sh
+RUN chmod +x /opt/run.sh
+
+# clean up apt cache to reduce image size
+
+RUN apt-get remove --purge -y \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+# set the entrypoint to the bash script
+CMD ["/opt/run.sh"]

@@ -1,0 +1,22 @@
+
+services:
+  app:
+    image: analitics-api:v1 # we have to change this tag with everry build
+    build: 
+      context: .
+      dockerfile: Dockerfile.web
+    env_file:
+      - .env
+    ports:
+      - "8002:8002" 
+    command: uvicorn  main:app --host 0.0.0.0 --port 8002 --reload
+    volumes:
+      - ./src:/code:rw
+    develop:
+      watch:
+        - action: rebuild
+          path: Dockerfile.web
+        - action: rebuild
+          path: requirements.txt
+        - action: rebuild
+          path: compose.yaml
