@@ -14,6 +14,7 @@ RUN python -m pip install --upgrade pip
 
 # set python related environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
+# prevent python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
 # install dependencies
@@ -46,7 +47,6 @@ COPY ./boot/docker-run.sh /opt/run.sh
 RUN chmod +x /opt/run.sh
 
 # clean up apt cache to reduce image size
-
 RUN apt-get remove --purge -y \
     && apt-get autoremove -y \
     && apt-get clean \

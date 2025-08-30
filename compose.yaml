@@ -1,7 +1,7 @@
 
 services:
   app:
-    image: analitics-api:v1 # we have to change this tag with everry build
+    image: analitics-api # we have to change this tag with everry build
     build: 
       context: .
       dockerfile: Dockerfile.web
