@@ -29,6 +29,17 @@ def read_events() -> EventListSchema:
         "count": 2,
         }  # Placeholder implementation
 
+@router.push("/events")
+def push_events() -> EventListSchema:
+    # a bunch of logic to read events from a database or other source would go here
+    return {
+        #list of events
+        "results": [
+            {"id": 1, "name": "Event 1"},
+            {"id": 2, "name": "Event 2"},
+        ],
+        "count": 2,
+        }
 
 # /api/events/12
 @router.get("/{event_id}")
